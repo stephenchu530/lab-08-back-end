@@ -105,7 +105,6 @@ const checkOtherDB = function(queryData, response, tableName, errorHandler){
   } else {
     sqlStatement = 'SELECT * FROM event WHERE search_query = $1';
   }
-
   let values = [ queryData.query.data.search_query ];
   return pgClient.query(sqlStatement, values).then((data) => {
     if(data.rowCount) {
