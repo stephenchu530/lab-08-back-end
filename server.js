@@ -144,7 +144,7 @@ const checkOtherDB = function(queryData, response, tableName){
     if(data.rowCount) {
       let arr;
       if (tableName === 'weather'){
-        arr = 'dailyForecast';
+        arr = 'dailyforecast';
       } else {
         arr = 'events';
       }
@@ -168,15 +168,17 @@ const checkOtherDB = function(queryData, response, tableName){
             if (tableName === 'weather') {
               resultObject = new Weather(res);
               sqlInsert = 'INSERT INTO weather (dailyForecast, search_query) VALUES ($1, $2)';
-              args = [resultObject, queryData.query.data.search_query];
+              args = [JSON.stringify(resultObject.dailyForecast), queryData.query.data.search_query];
+              pgClient.query(sqlInsert, args);
+              return response.status(200).send(resultObject.dailyForecast);
 
             } else {
               resultObject = new Event(res);
               sqlInsert = 'INSERT INTO event (events, search_query) VALUES ($1, $2)';
-              args = [resultObject, queryData.query.data.search_query];
+              args = [JSON.stringify(resultObject.events), queryData.query.data.search_query];
+              pgClient.query(sqlInsert, args);
+              return response.status(200).send(resultObject.events);
             }
-            pgClient.query(sqlInsert, args);
-            return response.status(200).send(resultObject);
           }
         });
     }
