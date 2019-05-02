@@ -43,15 +43,15 @@ From the terminal, run one of the following to make a local copy:
 
 ## Time Estimation
 ```
-Number and name of feature: ____
+Number and name of feature: Database Setup & Table Creation
 
-Estimate of time needed to complete: ____
+Estimate of time needed to complete: 60min
 
-Start time: ____
+Start time: 0845
 
-Finish time: ____
+Finish time: 0915
 
-Actual time needed to complete: ____
+Actual time needed to complete: 30min
 ```
 ```
 Number and name of feature: ____
