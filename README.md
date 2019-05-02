@@ -54,26 +54,26 @@ Finish time: 0915
 Actual time needed to complete: 30min
 ```
 ```
-Number and name of feature: ____
+Number and name of feature: Implement DB
 
-Estimate of time needed to complete: ____
+Estimate of time needed to complete: 60min
 
-Start time: ____
+Start time: 0915
 
-Finish time: ____
+Finish time: 1300
 
-Actual time needed to complete: ____
+Actual time needed to complete: ~3hrs
 ```
 ```
-Number and name of feature: ____
+Number and name of feature: Deploy to Heroku
 
-Estimate of time needed to complete: ____
+Estimate of time needed to complete: 60mins
 
-Start time: ____
+Start time: 1300
 
-Finish time: ____
+Finish time: 1305
 
-Actual time needed to complete: ____
+Actual time needed to complete: 5min
 ```
 
 ## License:
