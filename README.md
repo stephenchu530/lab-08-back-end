@@ -20,7 +20,7 @@ From the terminal, run one of the following to make a local copy:
 
 ### Usage:
 * In the CLI, run: `$ node server.js`
-* Or go to: [heroku deployed site](https://glacial-eyrie-10319.herokuapp.com)
+* Or go to: [https://agile-tor-44046.herokuapp.com/](https://agile-tor-44046.herokuapp.com/)
 
 
 ## Architecture
