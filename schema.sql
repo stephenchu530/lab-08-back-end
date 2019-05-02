@@ -8,12 +8,10 @@ CREATE TABLE location (
   search_query VARCHAR(255)
 );
 CREATE TABLE weather (
-  forecast VARCHAR(255),
-  time VARCHAR(15)
+  dailyForecast JSON,
+  search_query VARCHAR(255)
 );
 CREATE TABLE event (
-  link VARCHAR(255),
-  name VARCHAR(255),
-  event_date VARCHAR(15),
-  summary TEXT
+  events JSON,
+  search_query VARCHAR(255)
 );
