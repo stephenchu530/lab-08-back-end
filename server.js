@@ -6,12 +6,15 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const PORT = process.env.PORT || 3000;
+const pg = require('pg');
 
 app.use(cors());
 
 app.get('/hello', (request, response) => {
   response.status(200).send('Hello');
 });
+
+const pgClient = new pg.Client(process.env.DATABASE_URL);
 
 app.get('/location', (request, response) => {
   const queryData = request.query.data;
