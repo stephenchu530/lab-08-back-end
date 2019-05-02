@@ -4,7 +4,7 @@
 
 City Explorer backend app
 
-**Authors**: Jhia Turner, David Marchante, Stephen Chu
+**Authors**: Kush Shrestha, Jhia Turner, David Marchante, Stephen Chu
 
 **Version**: 1.2.0 (increment the patch/fix version number if you make more commits past your first submission)
 
@@ -36,6 +36,7 @@ From the terminal, run one of the following to make a local copy:
 
 
 ## Credits and Collaborations
+* Kush Shrestha, [kushshrestha01](https://github.com/kushshrestha01)
 * Jhia Turner, [jhimitu](https://github.com/jhimitu)
 * David Marchante, [dmarchante](https://github.com/dmarchante)
 * Stephen Chu, [stephenchu530](https://github.com/stephenchu530)
