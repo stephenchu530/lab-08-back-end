@@ -10,10 +10,6 @@ const pg = require('pg');
 
 app.use(cors());
 
-app.get('/hello', (request, response) => {
-  response.status(200).send('Hello');
-});
-
 const pgClient = new pg.Client(process.env.DATABASE_URL);
 pgClient.connect();
 
@@ -23,40 +19,11 @@ app.get('/location', (request, response) => {
 });
 
 app.get('/weather', (request, response) => {
-  checkOtherDB(request, response, 'weather');
-  // const lat = request.query.data.latitude;
-  // const lng = request.query.data.longitude;
-  // const weatherURL =`https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${lat},${lng}`;
-  // superagent.get(weatherURL)
-  //   .end((err, res) => {
-  //     if (err && err.status !== 200) {
-  //       const errorResponse500 = {'status': 500, 'responseText': 'Sorry, something went wrong' };
-
-  //       response.status(500).send(errorResponse500);
-  //     } else {
-  //       const weather = new Weather(res);
-  //       response.status(200).send(weather.dailyForecast);
-  //     }
-  //   });
+  checkOtherDB(request, response, 'weather', errorHandler);
 });
 
 app.get('/events', (request, response) => {
-  checkOtherDB(request, response, 'event');
-  // const lat = request.query.data.latitude;
-  // const lng = request.query.data.longitude;
-
-  // const eventURL =`https://www.eventbriteapi.com/v3/events/search?location.longitude=${lng}&location.latitude=${lat}&expand=venue&token=${process.env.EVENTBRITE_API_KEY}`;
-  // superagent.get(eventURL)
-  //   .end((err, res) => {
-  //     if (err && err.status !== 200) {
-  //       const errorResponse500 = {'status': 500, 'responseText': 'Sorry, something went wrong' };
-
-  //       response.status(500).send(errorResponse500);
-  //     } else {
-  //       const event = new Event(res);
-  //       response.status(200).send(event.events);
-  //     }
-  //   });
+  checkOtherDB(request, response, 'event', errorHandler);
 });
 
 
@@ -129,7 +96,7 @@ const checkLocationDB = function(queryData, response){
   });
 };
 
-const checkOtherDB = function(queryData, response, tableName){
+const checkOtherDB = function(queryData, response, tableName, errorHandler){
   const weatherURL =`https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${queryData.query.data.latitude},${queryData.query.data.longitude}`;
   const eventURL =`https://www.eventbriteapi.com/v3/events/search?location.longitude=${queryData.query.data.longitude}&location.latitude=${queryData.query.data.latitude}&expand=venue&token=${process.env.EVENTBRITE_API_KEY}`;
   let sqlStatement;
@@ -138,7 +105,6 @@ const checkOtherDB = function(queryData, response, tableName){
   } else {
     sqlStatement = 'SELECT * FROM event WHERE search_query = $1';
   }
-
   let values = [ queryData.query.data.search_query ];
   return pgClient.query(sqlStatement, values).then((data) => {
     if(data.rowCount) {
@@ -159,8 +125,7 @@ const checkOtherDB = function(queryData, response, tableName){
       superagent.get(URL)
         .end((err, res) => {
           if (err && err.status !== 200) {
-            const errorResponse500 = {'status': 500, 'responseText': 'Sorry, something went wrong' };
-            return response.status(500).send(errorResponse500);
+            errorHandler(response, 500);
           } else {
             let resultObject;
             let sqlInsert;
@@ -183,4 +148,9 @@ const checkOtherDB = function(queryData, response, tableName){
         });
     }
   });
+};
+
+const errorHandler = function(res, code) {
+  const errorResponse = {'status': code, 'responseText': 'Sorry, something went wrong' };
+  return res.status(500).send(errorResponse);
 };
